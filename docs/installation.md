@@ -87,7 +87,7 @@ Core install is done. The rest of this document is optional add-ons, grouped int
 - **Token saving** — [rtk](https://github.com/rtk-ai/rtk), [caveman](https://github.com/JuliusBrussee/caveman)
 - **Agentic workflow** — [superpowers](https://github.com/obra/superpowers), [OpenSpec](https://github.com/Fission-AI/OpenSpec)
 - **Explore** — [codegraph](https://github.com/colbymchenry/codegraph), [codebase-memory-mcp](https://github.com/DeusData/codebase-memory-mcp)
-- **Additional features** — [agent-browser](https://github.com/vercel-labs/agent-browser), [@tintinweb/pi-subagents](https://pi.dev/packages/@tintinweb/pi-subagents)
+- **Additional features** — [agent-browser](https://github.com/vercel-labs/agent-browser), [@tintinweb/pi-subagents](https://pi.dev/packages/@tintinweb/pi-subagents), [remote-pi](https://pi.dev/packages/remote-pi)
 - **Beautification** — [pi-zentui](https://pi.dev/packages/pi-zentui)
 
 Pick what fits your workflow, or skip straight to using pi.
@@ -125,6 +125,7 @@ kickstart.pi is meant to be understood, not just installed.
 
 - **[`docs/installation-agent-browser.md`](installation-agent-browser.md)** — browser automation via CDP
 - **[`docs/installation-subagents.md`](installation-subagents.md)** — Claude Code-style autonomous sub-agents
+- **[`docs/installation-remote-pi.md`](installation-remote-pi.md)** — local agent mesh + mobile app companion
 
 **Beautification:**
 

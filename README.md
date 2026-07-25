@@ -87,6 +87,7 @@ kickstart.pi/
     ├── installation-codebase-memory-mcp.md   ← optional: SQLite knowledge graph (project)
     ├── installation-agent-browser.md   ← optional: browser automation via CDP (project)
     ├── installation-subagents.md   ← optional: Claude Code-style sub-agents (global)
+    ├── installation-remote-pi.md   ← optional: local agent mesh + mobile app (global)
     └── installation-zentui.md   ← optional: TUI statusline + editor chrome (global)
 ```
 
@@ -100,9 +101,10 @@ That's it. No `settings.json`, no skills, no agents, no extensions. **kickstart.
 2. **Decide what goes in your `~/.pi/agent/settings.json`** — kickstart.pi ships no config by design. Set your preferred provider, model, and theme. pi walks you through this on first launch.
 3. **Install token-savers globally** — [rtk](docs/installation-rtk.md) is the only one recommended at the global level. Compresses verbose bash output across every project.
 4. **Install project-level tools as you need them** — [codegraph](docs/installation-codegraph.md) / [codebase-memory-mcp](docs/installation-codebase-memory-mcp.md) for code context, [superpowers](docs/installation-superpowers.md) for skills, [OpenSpec](docs/installation-openspec.md) for spec-driven dev, [caveman](docs/installation-caveman.md) for prose compression, [agent-browser](docs/installation-agent-browser.md) for browser automation. Each one scopes itself to the project you `cd` into.
-5. **Customize the global [`AGENTS.md`](AGENTS.md)** — add your language preference, working style, and MCP usage hints that apply everywhere.
-6. **Add project-level `AGENTS.md`** in repos that need it — project structure, tech stack, coding conventions.
-7. **Create your own prompt templates** in `.pi/prompts/` for repetitive workflows (`/your-command`).
+5. **Or install global session-level tools** — [pi-subagents](docs/installation-subagents.md) spawns Claude Code-style sub-agents; [remote-pi](docs/installation-remote-pi.md) wires up a local agent mesh plus the mobile app. One install covers every project.
+6. **Customize the global [`AGENTS.md`](AGENTS.md)** — add your language preference, working style, and MCP usage hints that apply everywhere.
+7. **Add project-level `AGENTS.md`** in repos that need it — project structure, tech stack, coding conventions.
+8. **Create your own prompt templates** in `.pi/prompts/` for repetitive workflows (`/your-command`).
 
 Delete anything you don't use. It's a starting point, not a framework.
 
@@ -260,6 +262,21 @@ Install at the **project level**. `cd` into the project directory first, then pa
 Read the installation guide and follow it:
 https://raw.githubusercontent.com/orionpax1997/kickstart.pi/refs/heads/main/docs/installation-agent-browser.md
 ```
+
+### remote-pi
+
+[remote-pi](https://pi.dev/packages/remote-pi) adds two superpowers on top of pi, wired up by a single `/remote-pi` slash command: a **local agent mesh** (open several pi terminals in the same directory and they discover each other over a Unix-domain-socket broker, with two new LLM tools — `agent_send` and `agent_request`), and a **mobile app** that drives pi from your phone via a QR-paired WebSocket relay (send prompts / voice / images, switch model and thinking level). The agent network is purely local; only the mobile relay touches the network, and only through end-to-end-encrypted payloads.
+
+> remote-pi is unrelated to [pi-subagents](#subagents): sub-agents are spawned **inside one process** by the main agent; remote-pi peers are **separate pi processes** that opt in to a shared mesh and talk to each other directly.
+
+Install at the **global** level. Paste this into pi:
+
+```
+Read the installation guide and follow it:
+https://raw.githubusercontent.com/orionpax1997/kickstart.pi/refs/heads/main/docs/installation-remote-pi.md
+```
+
+Then `/remote-pi` to run the one-time setup wizard, `/remote-pi pair` to scan a QR with the [Remote Pi app](https://remote-pi.jacobmoura.work/), and `/remote-pi status` to see who's connected.
 
 ---
 
