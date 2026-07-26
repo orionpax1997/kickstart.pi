@@ -76,7 +76,6 @@ kickstart.pi/
 ├── LICENSE
 ├── README.md            ← you are here
 ├── README.zh-cn.md      ← Chinese version
-├── AGENTS.md            ← global instructions loaded by pi into every session
 └── docs/
     ├── installation.md        ← install / backup / update
     ├── installation-rtk.md    ← optional: token-saving bash rewriter (global)
@@ -103,7 +102,7 @@ That's it. No `settings.json`, no skills, no agents, no extensions. **kickstart.
 3. **Install token-savers globally** — [rtk](docs/installation-rtk.md) is the only one recommended at the global level. Compresses verbose bash output across every project.
 4. **Install project-level tools as you need them** — [codegraph](docs/installation-codegraph.md) / [codebase-memory-mcp](docs/installation-codebase-memory-mcp.md) for code context, [superpowers](docs/installation-superpowers.md) for skills, [OpenSpec](docs/installation-openspec.md) for spec-driven dev, [caveman](docs/installation-caveman.md) for prose compression, [agent-browser](docs/installation-agent-browser.md) for browser automation. Each one scopes itself to the project you `cd` into.
 5. **Or install global session-level tools** — [pi-subagents](docs/installation-subagents.md) spawns Claude Code-style sub-agents; [remote-pi](docs/installation-remote-pi.md) wires up a local agent mesh plus the mobile app. One install covers every project.
-6. **Customize the global [`AGENTS.md`](AGENTS.md)** — add your language preference, working style, and MCP usage hints that apply everywhere.
+6. **Customize the global `AGENTS.md`** — add your language preference, working style, and MCP usage hints that apply everywhere.
 7. **Add project-level `AGENTS.md`** in repos that need it — project structure, tech stack, coding conventions.
 8. **Create your own prompt templates** in `.pi/prompts/` for repetitive workflows (`/your-command`).
 
@@ -139,7 +138,7 @@ The install flow in [`docs/installation.md`](docs/installation.md) sets up every
 
 **No `settings.json` shipped** — pi walks you through provider / model / theme selection on first launch. If you already have a backup, restore it with `cp ~/.pi/agent.bak/settings.json ~/.pi/agent/`.
 
-These MCP servers are what the global [`AGENTS.md`](AGENTS.md) points at. Without them, those instructions have nothing to query.
+These MCP servers are what the global `AGENTS.md` points at. Without them, those instructions have nothing to query.
 
 ---
 
@@ -296,7 +295,7 @@ Then `/remote-pi` to run the one-time setup wizard, `/remote-pi pair` to scan a 
 
 ## AGENTS.md
 
-[AGENTS.md](AGENTS.md) is the global instruction file pi loads into every session. It lives at `~/.pi/agent/AGENTS.md` after cloning. Keep it short — only include what truly applies everywhere.
+AGENTS.md is the global instruction file pi loads into every session. Keep it short — only include what truly applies everywhere.
 
 pi also auto-discovers `AGENTS.md` / `CLAUDE.md` walking up from the cwd, so a project-level copy in the project root overrides the global one for that project.
 

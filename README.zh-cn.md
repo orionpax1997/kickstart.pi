@@ -76,7 +76,6 @@ kickstart.pi/
 ├── LICENSE
 ├── README.md            ← 你正在阅读的英文版
 ├── README.zh-cn.md      ← 你正在阅读的这份
-├── AGENTS.md            ← 全局指令，pi 在每次会话中加载
 └── docs/
     ├── installation.md        ← 安装 / 备份 / 升级
     ├── installation-rtk.md    ← 可选：token 节省的 bash 重写器（全局）
@@ -103,7 +102,7 @@ kickstart.pi/
 3. **全局装 token 节省工具** —— [rtk](docs/installation-rtk.md) 是唯一推荐全局装的。它会跨项目压缩冗长的 bash 输出。
 4. **按需装项目级工具** —— [codegraph](docs/installation-codegraph.md) / [codebase-memory-mcp](docs/installation-codebase-memory-mcp.md) 看代码，[superpowers](docs/installation-superpowers.md) 提供 skill，[OpenSpec](docs/installation-openspec.md) 走 spec-driven 开发，[caveman](docs/installation-caveman.md) 压缩 prose，[agent-browser](docs/installation-agent-browser.md) 控制浏览器。每个都只对你 `cd` 进去的项目生效。
 5. **或者装全局的会话级工具** —— [pi-subagents](docs/installation-subagents.md) 派生 Claude Code 风格的 sub-agent；[remote-pi](docs/installation-remote-pi.md) 拉起本地 agent 网格并接入手机 App。一次安装覆盖全部项目。
-6. **修改全局 [`AGENTS.md`](AGENTS.md)** —— 加你的语言偏好、工作风格、跨项目都适用的 MCP 用法提示。
+6. **修改全局 `AGENTS.md`** —— 加你的语言偏好、工作风格、跨项目都适用的 MCP 用法提示。
 7. **在需要 `AGENTS.md` 的项目根加一份** —— 写项目结构、技术栈、编码规范。
 8. **在 `.pi/prompts/` 里写自己的 prompt 模板** —— 把重复流程做成 `/your-command` 斜杠命令。
 
@@ -139,7 +138,7 @@ kickstart.pi/
 
 **不附带 `settings.json`** —— pi 首次启动时会引导你选 provider / model / theme。如果已有备份，可以用 `cp ~/.pi/agent.bak/settings.json ~/.pi/agent/` 恢复。
 
-这三个 MCP 是全局 [`AGENTS.md`](AGENTS.md) 引用的目标 —— 不装的话，那些指令无从查询。
+这三个 MCP 是全局 `AGENTS.md` 引用的目标 —— 不装的话，那些指令无从查询。
 
 ---
 
@@ -296,7 +295,7 @@ https://raw.githubusercontent.com/orionpax1997/kickstart.pi/refs/heads/main/docs
 
 ## AGENTS.md
 
-[AGENTS.md](AGENTS.md) 是 pi 在每个会话里加载的全局指令文件。`git clone` 之后位于 `~/.pi/agent/AGENTS.md`。保持简短——只写真正跨项目都适用的内容。
+AGENTS.md 是 pi 在每个会话里加载的全局指令文件。保持简短——只写真正跨项目都适用的内容。
 
 pi 还会从 cwd 向上自动发现 `AGENTS.md` / `CLAUDE.md`，所以项目根的 `AGENTS.md` 会在该项目中覆盖全局。
 
