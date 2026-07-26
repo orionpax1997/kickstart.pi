@@ -88,7 +88,7 @@ Core install is done. The rest of this document is optional add-ons, grouped int
 - **Agentic workflow** — [superpowers](https://github.com/obra/superpowers), [OpenSpec](https://github.com/Fission-AI/OpenSpec)
 - **Explore** — [codegraph](https://github.com/colbymchenry/codegraph), [codebase-memory-mcp](https://github.com/DeusData/codebase-memory-mcp)
 - **Additional features** — [agent-browser](https://github.com/vercel-labs/agent-browser), [@tintinweb/pi-subagents](https://pi.dev/packages/@tintinweb/pi-subagents), [remote-pi](https://pi.dev/packages/remote-pi)
-- **Beautification** — [pi-zentui](https://pi.dev/packages/pi-zentui)
+- **Beautification** — [pi-open-tui](https://pi.dev/packages/pi-open-tui), [@firstpick/pi-themes-bundle](https://pi.dev/packages/@firstpick/pi-themes-bundle)
 
 Pick what fits your workflow, or skip straight to using pi.
 
@@ -129,4 +129,5 @@ kickstart.pi is meant to be understood, not just installed.
 
 **Beautification:**
 
-- **[`docs/installation-zentui.md`](installation-zentui.md)** — Starship-style statusline and bordered editor
+- **[`docs/installation-open-tui.md`](installation-open-tui.md)** — animated logo header, Starship-style footer, rounded editor
+- **[`docs/installation-themes-bundle.md`](installation-themes-bundle.md)** — sixteen terminal palettes (Catppuccin, Dracula, Tokyo Night, Gruvbox, Nord, Rosé Pine, One Dark, Solarized, Everforest, Matrix, crimson-noir)

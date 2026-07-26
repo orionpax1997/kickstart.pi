@@ -88,7 +88,8 @@ kickstart.pi/
     ├── installation-agent-browser.md   ← 可选：CDP 浏览器自动化（项目级）
     ├── installation-subagents.md   ← 可选：Claude Code 风格 sub-agent（全局）
     ├── installation-remote-pi.md   ← 可选：本地 agent 网格 + 手机 App（全局）
-    └── installation-zentui.md   ← 可选：TUI 状态栏 + 编辑器美化（全局）
+    ├── installation-open-tui.md   ← 可选：动画 logo 头 + Starship 状态栏 + 圆角编辑器（全局）
+    └── installation-themes-bundle.md   ← 可选：十六套终端调色板（全局）
 ```
 
 就这些。**没有 settings.json、没有 skill、没有 agent、没有扩展**。`kickstart.pi` 刻意保持精简 —— 你的模型、主题、其它工具，都由你自己在 `~/.pi/agent/` 中配置。唯一必须装的扩展是 [`docs/installation.md`](docs/installation.md) Step 3 的三个 MCP 服务器（`context7`、`searchcode`、`exa`）。
@@ -144,18 +145,31 @@ kickstart.pi/
 
 ## 美化
 
-### pi-zentui
+### pi-open-tui
 
-[pi-zentui](https://pi.dev/packages/pi-zentui) 是 pi 的 TUI 美化扩展——提供 [Starship](https://starship.rs/) 风格的底部状态栏（当前目录、git 分支与状态、运行时版本、上下文/token/花费），以及 [Opencode](https://opencode.ai/) 风格的带边框输入框（框内显示 model 与 provider）。在 pi 里跑 `/zentui` 可逐段开关状态栏项、切换编辑器样式、调色。
+[pi-open-tui](https://pi.dev/packages/pi-open-tui) 是 pi 的 TUI 美化扩展——把 `pi-haiku`、`pi-claude-code-tui`、`pi-zentui` 三家之长打包在一起：顶部 16 帧彩色动画 Pi logo、两行 [Starship](https://starship.rs/) 风格的底部状态栏（当前目录、git 分支与状态、运行时版本、上下文条、model、token 计数、cost）、带 accent rail 的圆角编辑器、实时计时器，以及每次任务结束后的 telemetry 通知（TPS / TTFT / 停顿 / cost）。在 pi 里跑 `/open-tui` 可逐项开关头 / 状态栏 / 圆角编辑器、切换 Nerd Font 与 ASCII 图标，并配置 telemetry 段。
 
 建议**全局安装**。把下面这段粘贴到 pi：
 
 ```
 Read the installation guide and follow it:
-https://raw.githubusercontent.com/orionpax1997/kickstart.pi/refs/heads/main/docs/installation-zentui.md
+https://raw.githubusercontent.com/orionpax1997/kickstart.pi/refs/heads/main/docs/installation-open-tui.md
 ```
 
-装好后用 `/zentui` 微调显示项与配色。
+装好后用 `/open-tui` 微调显示项与 telemetry。
+
+### pi-themes-bundle
+
+[@firstpick/pi-themes-bundle](https://pi.dev/packages/@firstpick/pi-themes-bundle) 给 pi 的主题选择器新增十六套终端调色板——Catppuccin、Dracula、Tokyo Night、Gruvbox、Nord、Rosé Pine、One Dark、Solarized、Everforest 各有明暗两版，外加 `matrix` 与 `crimson-noir`。在 `/settings` 里挑选，或在 `~/.pi/agent/settings.json` 里设 `theme`。
+
+建议**全局安装**。把下面这段粘贴到 pi：
+
+```
+Read the installation guide and follow it:
+https://raw.githubusercontent.com/orionpax1997/kickstart.pi/refs/heads/main/docs/installation-themes-bundle.md
+```
+
+装好后用 `/settings` 选调色板，或直接在 `~/.pi/agent/settings.json` 里设 `theme`（例如 `"theme": "tokyo-night"`）。
 
 ---
 

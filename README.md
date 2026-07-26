@@ -88,7 +88,8 @@ kickstart.pi/
     ├── installation-agent-browser.md   ← optional: browser automation via CDP (project)
     ├── installation-subagents.md   ← optional: Claude Code-style sub-agents (global)
     ├── installation-remote-pi.md   ← optional: local agent mesh + mobile app (global)
-    └── installation-zentui.md   ← optional: TUI statusline + editor chrome (global)
+    ├── installation-open-tui.md   ← optional: animated header + Starship footer + rounded editor (global)
+    └── installation-themes-bundle.md   ← optional: sixteen terminal palettes (global)
 ```
 
 That's it. No `settings.json`, no skills, no agents, no extensions. **kickstart.pi is intentionally bare** — your model, theme, and other tooling are configured by you in your own `~/.pi/agent/`. The only required add-on is the three MCP servers installed via Step 3 of [`docs/installation.md`](docs/installation.md) (`context7`, `searchcode`, `exa`).
@@ -144,18 +145,31 @@ These MCP servers are what the global [`AGENTS.md`](AGENTS.md) points at. Withou
 
 ## Beautification
 
-### pi-zentui
+### pi-open-tui
 
-[pi-zentui](https://pi.dev/packages/pi-zentui) is a TUI styling extension for pi — a [Starship](https://starship.rs/)-inspired statusline footer (cwd, git branch & status, runtime version, context/tokens/cost) plus an [Opencode](https://opencode.ai/)-style bordered input box with model and provider shown inside the frame. Configure which segments show, swap editor layouts, and tweak colors from inside pi with `/zentui`.
+[pi-open-tui](https://pi.dev/packages/pi-open-tui) is a polished TUI styling extension for pi — bundles the best of `pi-haiku`, `pi-claude-code-tui`, and `pi-zentui` into one cohesive package: an animated 16-frame Pi logo header, a two-line [Starship](https://starship.rs/)-inspired footer (cwd, git branch & status, runtime version, context bar, model, tokens, cost), a rounded editor with accent rail, a working timer, and turn telemetry (TPS / TTFT / stalls / cost) shown as a transient notification after each run. Configure header, footer segments, icon mode, and telemetry from inside pi with `/open-tui`.
 
 Install at the **global** level. Paste this into pi:
 
 ```
 Read the installation guide and follow it:
-https://raw.githubusercontent.com/orionpax1997/kickstart.pi/refs/heads/main/docs/installation-zentui.md
+https://raw.githubusercontent.com/orionpax1997/kickstart.pi/refs/heads/main/docs/installation-open-tui.md
 ```
 
-Then `/zentui` to toggle footer segments and adjust the editor chrome.
+Then `/open-tui` to toggle the header / footer / rounded editor, switch between Nerd Font and ASCII icons, and configure telemetry segments.
+
+### pi-themes-bundle
+
+[@firstpick/pi-themes-bundle](https://pi.dev/packages/@firstpick/pi-themes-bundle) adds sixteen custom terminal palettes to pi's theme picker — dark and light variants of Catppuccin, Dracula, Tokyo Night, Gruvbox, Nord, Rosé Pine, One Dark, Solarized, and Everforest, plus `matrix` and `crimson-noir`. Pick one from `/settings` or set `theme` in `~/.pi/agent/settings.json`.
+
+Install at the **global** level. Paste this into pi:
+
+```
+Read the installation guide and follow it:
+https://raw.githubusercontent.com/orionpax1997/kickstart.pi/refs/heads/main/docs/installation-themes-bundle.md
+```
+
+Then `/settings` to pick a palette, or set `theme` in `~/.pi/agent/settings.json` (e.g. `"theme": "tokyo-night"`).
 
 ---
 
