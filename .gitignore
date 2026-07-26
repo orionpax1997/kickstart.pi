@@ -1,0 +1,16 @@
+# pi runtime (project-local agent state, packages installed with `pi install -l`, remote-pi mesh config)
+.pi/
+
+# OS
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Editor swap / backup files
+*.swp
+*.swo
+*~
+
+# IDE
+.idea/
+.vscode/
