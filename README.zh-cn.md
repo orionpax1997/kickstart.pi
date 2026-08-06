@@ -88,7 +88,8 @@ kickstart.pi/
     ├── installation-subagents.md   ← 可选：Claude Code 风格 sub-agent（全局）
     ├── installation-remote-pi.md   ← 可选：本地 agent 网格 + 手机 App（全局）
     ├── installation-open-tui.md   ← 可选：动画 logo 头 + Starship 状态栏 + 圆角编辑器（全局）
-    └── installation-themes-bundle.md   ← 可选：十六套终端调色板（全局）
+    ├── installation-themes-bundle.md   ← 可选：十六套终端调色板（全局）
+    └── installation-rounded-tools.md   ← 可选：内置工具的圆角边框（全局）
 ```
 
 就这些。**没有 settings.json、没有 skill、没有 agent、没有扩展**。`kickstart.pi` 刻意保持精简 —— 你的模型、主题、其它工具，都由你自己在 `~/.pi/agent/` 中配置。唯一必须装的扩展是 [`docs/installation.md`](docs/installation.md) Step 3 的三个 MCP 服务器（`context7`、`searchcode`、`exa`）。
@@ -169,6 +170,19 @@ https://raw.githubusercontent.com/orionpax1997/kickstart.pi/refs/heads/main/docs
 ```
 
 装好后用 `/settings` 选调色板，或直接在 `~/.pi/agent/settings.json` 里设 `theme`（例如 `"theme": "tokyo-night"`）。
+
+### pi-rounded-tools
+
+[pi-rounded-tools](https://github.com/orionpax1997/pi-rounded-tools) 是个极简的微调——把 pi 内置工具（`read`、`write`、`edit`、`bash`、`grep`、`find`、`ls`）的边框从方角 `┌┐└┘` 换成圆角 `╭╮╰╯`。没有状态栏壳，也不另加调色逻辑；边框颜色直接跟随主题的 `border` token（运行中变黄、失败变红、成功用主题默认色）。
+
+建议**全局安装**。把下面这段粘贴到 pi：
+
+```
+Read the installation guide and follow it:
+https://raw.githubusercontent.com/orionpax1997/kickstart.pi/refs/heads/main/docs/installation-rounded-tools.md
+```
+
+装好后重启 pi（或 `/reload`），所有内置工具的边框就会换成圆角。
 
 ---
 

@@ -88,7 +88,8 @@ kickstart.pi/
     ├── installation-subagents.md   ← optional: Claude Code-style sub-agents (global)
     ├── installation-remote-pi.md   ← optional: local agent mesh + mobile app (global)
     ├── installation-open-tui.md   ← optional: animated header + Starship footer + rounded editor (global)
-    └── installation-themes-bundle.md   ← optional: sixteen terminal palettes (global)
+    ├── installation-themes-bundle.md   ← optional: sixteen terminal palettes (global)
+    └── installation-rounded-tools.md   ← optional: rounded corners on built-in tools (global)
 ```
 
 That's it. No `settings.json`, no skills, no agents, no extensions. **kickstart.pi is intentionally bare** — your model, theme, and other tooling are configured by you in your own `~/.pi/agent/`. The only required add-on is the three MCP servers installed via Step 3 of [`docs/installation.md`](docs/installation.md) (`context7`, `searchcode`, `exa`).
@@ -169,6 +170,19 @@ https://raw.githubusercontent.com/orionpax1997/kickstart.pi/refs/heads/main/docs
 ```
 
 Then `/settings` to pick a palette, or set `theme` in `~/.pi/agent/settings.json` (e.g. `"theme": "tokyo-night"`).
+
+### pi-rounded-tools
+
+[pi-rounded-tools](https://github.com/orionpax1997/pi-rounded-tools) is a minimal cosmetic tweak — it swaps the square corners `┌┐└┘` on pi's built-in tools (`read`, `write`, `edit`, `bash`, `grep`, `find`, `ls`) for rounded ones `╭╮╰╯`. No shell, no extra theme logic; border color just follows your theme's `border` token (yellow while running, red on failure, theme-default on success).
+
+Install at the **global** level. Paste this into pi:
+
+```
+Read the installation guide and follow it:
+https://raw.githubusercontent.com/orionpax1997/kickstart.pi/refs/heads/main/docs/installation-rounded-tools.md
+```
+
+Then restart pi (or `/reload`) and every built-in tool frame is rounded.
 
 ---
 
