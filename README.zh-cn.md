@@ -87,6 +87,7 @@ kickstart.pi/
     ├── installation-codebase-memory-mcp.md   ← 可选：SQLite 知识图谱（项目级）
     ├── installation-agent-browser.md   ← 可选：CDP 浏览器自动化（项目级）
     ├── installation-subagents.md   ← 可选：Claude Code 风格 sub-agent（全局）
+    ├── installation-permission-system.md   ← 可选：工具、bash、MCP、skill 的确定性 allow / ask / deny 权限闸门（全局）
     ├── installation-remote-pi.md   ← 可选：本地 agent 网格 + 手机 App（全局）
     ├── installation-open-tui.md   ← 可选：动画 logo 头 + Starship 状态栏 + 圆角编辑器（全局）
     ├── installation-themes-bundle.md   ← 可选：十六套终端调色板（全局）
@@ -103,7 +104,7 @@ kickstart.pi/
 2. `kickstart.pi` 故意不附带任何配置。在首次启动时，pi 会引导你设置 provider、model、theme。
 3. **全局装 token 节省工具** —— [rtk](docs/installation-rtk.md) 是唯一推荐全局装的。它会跨项目压缩冗长的 bash 输出。
 4. **按需装项目级工具** —— [codegraph](docs/installation-codegraph.md) / [codebase-memory-mcp](docs/installation-codebase-memory-mcp.md) 看代码，[mattpocock/skills](docs/installation-matt-pocock-skills.md) 或 [superpowers](docs/installation-superpowers.md) 提供 skill，[OpenSpec](docs/installation-openspec.md) 走 spec-driven 开发，[caveman](docs/installation-caveman.md) 压缩 prose，[agent-browser](docs/installation-agent-browser.md) 控制浏览器。每个都只对你 `cd` 进去的项目生效。
-5. **或者装全局的会话级工具** —— [pi-subagents](docs/installation-subagents.md) 派生 Claude Code 风格的 sub-agent；[remote-pi](docs/installation-remote-pi.md) 拉起本地 agent 网格并接入手机 App。一次安装覆盖全部项目。
+5. **或者装全局的会话级工具** —— [pi-subagents](docs/installation-subagents.md) 派生 Claude Code 风格的 sub-agent；[@gotgenes/pi-permission-system](docs/installation-permission-system.md) 给所有工具、bash、MCP、skill 调用加上统一的权限闸门；[remote-pi](docs/installation-remote-pi.md) 拉起本地 agent 网格并接入手机 App。一次安装覆盖全部项目。
 6. **修改全局 `AGENTS.md`** —— 加你的语言偏好、工作风格、跨项目都适用的 MCP 用法提示。
 7. **在需要 `AGENTS.md` 的项目根加一份** —— 写项目结构、技术栈、编码规范。
 8. **在 `.pi/prompts/` 里写自己的 prompt 模板** —— 把重复流程做成 `/your-command` 斜杠命令。
@@ -290,6 +291,19 @@ https://raw.githubusercontent.com/orionpax1997/kickstart.pi/refs/heads/main/docs
 ```
 
 装好后用 `/agents` 在 pi 里管理与查看正在运行的 sub-agent。
+
+### pi-permission-system
+
+[@gotgenes/pi-permission-system](https://pi.dev/packages/@gotgenes/pi-permission-system) 是一道确定性权限闸门,坐落在 agent 与每次工具、bash、MCP、skill 调用之间。三种状态（`allow` / `deny` / `ask`）加四层权限面（`path` → `external_directory` → 工具级规则 → `bash` 规则）覆盖了编码 agent 几乎所有的破坏面——没预先放行的,统一弹 UI 确认框。sub-agent 的 `ask` 提示会自动转发回父会话,让 sub-agent 操作也走同一套规则。
+
+建议**全局安装**。把下面这段粘贴到 pi：
+
+```
+Read the installation guide and follow it:
+https://raw.githubusercontent.com/orionpax1997/kickstart.pi/refs/heads/main/docs/installation-permission-system.md
+```
+
+装好后编辑 `~/.pi/agent/extensions/pi-permission-system/config.json` 写你的策略——先用安装文档里那套安全默认（deny `.env`、bash 默认 ask、cwd 外目录 ask）,再按需收紧。
 
 ### agent-browser
 
