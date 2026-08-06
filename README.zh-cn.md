@@ -80,6 +80,7 @@ kickstart.pi/
     ├── installation.md        ← 安装 / 备份 / 升级
     ├── installation-rtk.md    ← 可选：token 节省的 bash 重写器（全局）
     ├── installation-caveman.md   ← 可选：token 节省的 prose 重写器（项目级）
+    ├── installation-matt-pocock-skills.md   ← 可选：mattpocock/skills，写给真实工程师的 skill 集（项目级）
     ├── installation-superpowers.md  ← 可选：agentic workflow skills（项目级）
     ├── installation-openspec.md   ← 可选：spec-driven 开发工作流（项目级）
     ├── installation-codegraph.md   ← 可选：预索引的代码知识图谱（项目级）
@@ -101,7 +102,7 @@ kickstart.pi/
 1. **通读 `README.md`** —— 理解设计理念与可用工具。
 2. `kickstart.pi` 故意不附带任何配置。在首次启动时，pi 会引导你设置 provider、model、theme。
 3. **全局装 token 节省工具** —— [rtk](docs/installation-rtk.md) 是唯一推荐全局装的。它会跨项目压缩冗长的 bash 输出。
-4. **按需装项目级工具** —— [codegraph](docs/installation-codegraph.md) / [codebase-memory-mcp](docs/installation-codebase-memory-mcp.md) 看代码，[superpowers](docs/installation-superpowers.md) 提供 skill，[OpenSpec](docs/installation-openspec.md) 走 spec-driven 开发，[caveman](docs/installation-caveman.md) 压缩 prose，[agent-browser](docs/installation-agent-browser.md) 控制浏览器。每个都只对你 `cd` 进去的项目生效。
+4. **按需装项目级工具** —— [codegraph](docs/installation-codegraph.md) / [codebase-memory-mcp](docs/installation-codebase-memory-mcp.md) 看代码，[mattpocock/skills](docs/installation-matt-pocock-skills.md) 或 [superpowers](docs/installation-superpowers.md) 提供 skill，[OpenSpec](docs/installation-openspec.md) 走 spec-driven 开发，[caveman](docs/installation-caveman.md) 压缩 prose，[agent-browser](docs/installation-agent-browser.md) 控制浏览器。每个都只对你 `cd` 进去的项目生效。
 5. **或者装全局的会话级工具** —— [pi-subagents](docs/installation-subagents.md) 派生 Claude Code 风格的 sub-agent；[remote-pi](docs/installation-remote-pi.md) 拉起本地 agent 网格并接入手机 App。一次安装覆盖全部项目。
 6. **修改全局 `AGENTS.md`** —— 加你的语言偏好、工作风格、跨项目都适用的 MCP 用法提示。
 7. **在需要 `AGENTS.md` 的项目根加一份** —— 写项目结构、技术栈、编码规范。
@@ -213,6 +214,17 @@ https://raw.githubusercontent.com/orionpax1997/kickstart.pi/refs/heads/main/docs
 ---
 
 ## Agentic 工作流
+
+### mattpocock/skills
+
+[mattpocock/skills](https://github.com/mattpocock/skills) 是 Matt Pocock 整理的工程 skill 集——头脑风暴式的需求访谈、TDD、bug 诊断、代码审查、架构调研、issue 分流等等。按任务自动加载；部分 skill 还注册成 `/skill:<name>` 斜杠命令。定位是体量小、好改造、易组合。
+
+建议**项目级别安装**。先 `cd` 到项目目录，再把下面这段粘贴到 pi：
+
+```
+Read the installation guide and follow it:
+https://raw.githubusercontent.com/orionpax1997/kickstart.pi/refs/heads/main/docs/installation-matt-pocock-skills.md
+```
 
 ### superpowers
 

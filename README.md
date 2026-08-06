@@ -80,6 +80,7 @@ kickstart.pi/
     ├── installation.md        ← install / backup / update
     ├── installation-rtk.md    ← optional: token-saving bash rewriter (global)
     ├── installation-caveman.md   ← optional: token-saving prose rewriter (project)
+    ├── installation-matt-pocock-skills.md   ← optional: mattpocock/skills for real engineers (project)
     ├── installation-superpowers.md  ← optional: agentic workflow skills (project)
     ├── installation-openspec.md   ← optional: spec-driven dev workflow (project)
     ├── installation-codegraph.md   ← optional: pre-indexed code knowledge graph (project)
@@ -101,7 +102,7 @@ That's it. No `settings.json`, no skills, no agents, no extensions. **kickstart.
 1. **Read `README.md` from top to bottom** — understand the philosophy and what's available.
 2. **Decide what goes in your `~/.pi/agent/settings.json`** — kickstart.pi ships no config by design. Set your preferred provider, model, and theme. pi walks you through this on first launch.
 3. **Install token-savers globally** — [rtk](docs/installation-rtk.md) is the only one recommended at the global level. Compresses verbose bash output across every project.
-4. **Install project-level tools as you need them** — [codegraph](docs/installation-codegraph.md) / [codebase-memory-mcp](docs/installation-codebase-memory-mcp.md) for code context, [superpowers](docs/installation-superpowers.md) for skills, [OpenSpec](docs/installation-openspec.md) for spec-driven dev, [caveman](docs/installation-caveman.md) for prose compression, [agent-browser](docs/installation-agent-browser.md) for browser automation. Each one scopes itself to the project you `cd` into.
+4. **Install project-level tools as you need them** — [codegraph](docs/installation-codegraph.md) / [codebase-memory-mcp](docs/installation-codebase-memory-mcp.md) for code context, [mattpocock/skills](docs/installation-matt-pocock-skills.md) or [superpowers](docs/installation-superpowers.md) for skills, [OpenSpec](docs/installation-openspec.md) for spec-driven dev, [caveman](docs/installation-caveman.md) for prose compression, [agent-browser](docs/installation-agent-browser.md) for browser automation. Each one scopes itself to the project you `cd` into.
 5. **Or install global session-level tools** — [pi-subagents](docs/installation-subagents.md) spawns Claude Code-style sub-agents; [remote-pi](docs/installation-remote-pi.md) wires up a local agent mesh plus the mobile app. One install covers every project.
 6. **Customize the global `AGENTS.md`** — add your language preference, working style, and MCP usage hints that apply everywhere.
 7. **Add project-level `AGENTS.md`** in repos that need it — project structure, tech stack, coding conventions.
@@ -213,6 +214,17 @@ https://raw.githubusercontent.com/orionpax1997/kickstart.pi/refs/heads/main/docs
 ---
 
 ## Agentic Workflow
+
+### mattpocock/skills
+
+[mattpocock/skills](https://github.com/mattpocock/skills) is Matt Pocock's curated set of engineering skills — grilling interviews, TDD, diagnosing bugs, code review, architecture surveys, triage, and more. Skills auto-load per task; some also register as `/skill:<name>` slash commands. Designed to be small, easy to adapt, and composable.
+
+Install at the **project level**. `cd` into the project directory first, then paste this into pi:
+
+```
+Read the installation guide and follow it:
+https://raw.githubusercontent.com/orionpax1997/kickstart.pi/refs/heads/main/docs/installation-matt-pocock-skills.md
+```
 
 ### superpowers
 
