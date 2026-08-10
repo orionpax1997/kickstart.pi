@@ -16,7 +16,7 @@ codebase-memory-mcp --version
 
 ## 2. Wire the MCP server into the project
 
-In the project root, create `.mcp.json` if it does not exist. If it already exists, merge the `codebase-memory-mcp` entry into its existing `mcpServers` object instead of replacing the file. The `environment.CBM_CACHE_DIR` entry redirects the SQLite index to a project-local directory:
+In the project root, create `.pi/mcp.json` if it does not exist. If it already exists, merge the `codebase-memory-mcp` entry into its existing `mcpServers` object instead of replacing the file. The `environment.CBM_CACHE_DIR` entry redirects the SQLite index to a project-local directory:
 
 ```json
 {
@@ -88,6 +88,6 @@ The SQLite index is regenerable from source — never commit it. Add to the proj
 
 ## Recommendation: install at the project level
 
-- The SQLite index and the project's `.mcp.json` stay scoped to the project that benefits from them
+- The SQLite index and the project's `.pi/mcp.json` stay scoped to the project that benefits from them
 - `CBM_CACHE_DIR` redirects the global cache to project-local — keeps the index alongside the code it describes
 - Matches how codebase-memory-mcp is intended (per-project, not per-machine)

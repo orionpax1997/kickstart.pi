@@ -10,17 +10,17 @@
 npx -y @colbymchenry/codegraph install
 ```
 
-This command installs codegraph, but does not create the project's `.mcp.json`. Wire up the MCP server manually as described below, then build the per-project graph:
+This command installs codegraph, but does not create the project's `.pi/mcp.json`. Wire up the MCP server manually as described below, then build the per-project graph:
 
 ```bash
 npx -y @colbymchenry/codegraph init
 ```
 
-All three steps are required: `install` installs codegraph, the `.mcp.json` configuration connects it to pi, and `init` builds the index. Without `init`, the MCP tools have nothing to query.
+All three steps are required: `install` installs codegraph, the `.pi/mcp.json` configuration connects it to pi, and `init` builds the index. Without `init`, the MCP tools have nothing to query.
 
 ## Configure MCP
 
-Create `.mcp.json` in the project root if it does not exist. If it already exists, merge the `codegraph` entry into its existing `mcpServers` object instead of replacing the file:
+Create `.pi/mcp.json` in the project root if it does not exist. If it already exists, merge the `codegraph` entry into its existing `mcpServers` object instead of replacing the file:
 
 ```json
 {
