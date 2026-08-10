@@ -91,7 +91,8 @@ kickstart.pi/
     ├── installation-remote-pi.md   ← 可选：本地 agent 网格 + 手机 App（全局）
     ├── installation-open-tui.md   ← 可选：动画 logo 头 + Starship 状态栏 + 圆角编辑器（全局）
     ├── installation-themes-bundle.md   ← 可选：十六套终端调色板（全局）
-    └── installation-rounded-tools.md   ← 可选：内置工具的圆角边框（全局）
+    ├── installation-rounded-tools.md   ← 可选：内置工具的圆角边框（全局）
+    └── installation-tui-commands.md   ← 可选：把 TUI 工具（lazygit、nvim、htop …）变成斜杠命令（全局）
 ```
 
 就这些。**没有 settings.json、没有 skill、没有 agent、没有扩展**。`kickstart.pi` 刻意保持精简 —— 你的模型、主题、其它工具，都由你自己在 `~/.pi/agent/` 中配置。唯一必须装的扩展是 [`docs/installation.md`](docs/installation.md) Step 3 的三个 MCP 服务器（`context7`、`searchcode`、`exa`）。
@@ -104,7 +105,7 @@ kickstart.pi/
 2. `kickstart.pi` 故意不附带任何配置。在首次启动时，pi 会引导你设置 provider、model、theme。
 3. **全局装 token 节省工具** —— [rtk](docs/installation-rtk.md) 是唯一推荐全局装的。它会跨项目压缩冗长的 bash 输出。
 4. **按需装项目级工具** —— [codegraph](docs/installation-codegraph.md) / [codebase-memory-mcp](docs/installation-codebase-memory-mcp.md) 看代码，[mattpocock/skills](docs/installation-matt-pocock-skills.md) 或 [superpowers](docs/installation-superpowers.md) 提供 skill，[OpenSpec](docs/installation-openspec.md) 走 spec-driven 开发，[caveman](docs/installation-caveman.md) 压缩 prose，[agent-browser](docs/installation-agent-browser.md) 控制浏览器。每个都只对你 `cd` 进去的项目生效。
-5. **或者装全局的会话级工具** —— [pi-subagents](docs/installation-subagents.md) 派生 Claude Code 风格的 sub-agent；[@gotgenes/pi-permission-system](docs/installation-permission-system.md) 给所有工具、bash、MCP、skill 调用加上统一的权限闸门；[remote-pi](docs/installation-remote-pi.md) 拉起本地 agent 网格并接入手机 App。一次安装覆盖全部项目。
+5. **或者装全局的会话级工具** —— [pi-subagents](docs/installation-subagents.md) 派生 Claude Code 风格的 sub-agent；[@gotgenes/pi-permission-system](docs/installation-permission-system.md) 给所有工具、bash、MCP、skill 调用加上统一的权限闸门；[remote-pi](docs/installation-remote-pi.md) 拉起本地 agent 网格并接入手机 App；[pi-tui-commands](docs/installation-tui-commands.md) 把常用的 TUI 工具变成斜杠命令，运行时先挂起 pi、退出后再恢复。一次安装覆盖全部项目。
 6. **修改全局 `AGENTS.md`** —— 加你的语言偏好、工作风格、跨项目都适用的 MCP 用法提示。
 7. **在需要 `AGENTS.md` 的项目根加一份** —— 写项目结构、技术栈、编码规范。
 8. **在 `.pi/prompts/` 里写自己的 prompt 模板** —— 把重复流程做成 `/your-command` 斜杠命令。
@@ -330,6 +331,19 @@ https://raw.githubusercontent.com/orionpax1997/kickstart.pi/refs/heads/main/docs
 ```
 
 装好后 `/remote-pi` 跑一次性配置向导，`/remote-pi pair` 扫码绑定 [Remote Pi App](https://remote-pi.jacobmoura.work/)，`/remote-pi status` 查看当前接入的 peer。
+
+### pi-tui-commands
+
+[pi-tui-commands](https://pi.dev/packages/pi-tui-commands) 把任何已经在 `PATH` 里的 TUI 工具注册成 pi 的斜杠命令：`/lazygit`、`/nvim`、`/htop`、`/k9s` …… `/tuicmd` 打开一个可搜索的开关列表（开启时会先 `which` 检查二进制是否存在,所以不会注册到没装的工具）；`/tuicmd add lg lazygit` 还可以注册自定义别名；执行时通过 `ctx.ui.custom()` **先把 pi 的 TUI 挂起、工具退出后再原样恢复** —— 对话、prompt 历史、滚动位置都保留,不需要 alt-tab 切来切去。
+
+建议**全局安装**。把下面这段粘贴到 pi：
+
+```
+Read the installation guide and follow it:
+https://raw.githubusercontent.com/orionpax1997/kickstart.pi/refs/heads/main/docs/installation-tui-commands.md
+```
+
+装好后 `/tuicmd` 打开开关列表，`Enter` 切换 ON/OFF，`/` 模糊搜索。启用集合与自定义命令持久化在 `~/.pi/agent/tui-commands.json`，重启不丢。
 
 ---
 

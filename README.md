@@ -91,7 +91,8 @@ kickstart.pi/
     ├── installation-remote-pi.md   ← optional: local agent mesh + mobile app (global)
     ├── installation-open-tui.md   ← optional: animated header + Starship footer + rounded editor (global)
     ├── installation-themes-bundle.md   ← optional: sixteen terminal palettes (global)
-    └── installation-rounded-tools.md   ← optional: rounded corners on built-in tools (global)
+    ├── installation-rounded-tools.md   ← optional: rounded corners on built-in tools (global)
+    └── installation-tui-commands.md   ← optional: turn TUI tools (lazygit, nvim, htop, …) into slash commands (global)
 ```
 
 That's it. No `settings.json`, no skills, no agents, no extensions. **kickstart.pi is intentionally bare** — your model, theme, and other tooling are configured by you in your own `~/.pi/agent/`. The only required add-on is the three MCP servers installed via Step 3 of [`docs/installation.md`](docs/installation.md) (`context7`, `searchcode`, `exa`).
@@ -104,7 +105,7 @@ That's it. No `settings.json`, no skills, no agents, no extensions. **kickstart.
 2. **Decide what goes in your `~/.pi/agent/settings.json`** — kickstart.pi ships no config by design. Set your preferred provider, model, and theme. pi walks you through this on first launch.
 3. **Install token-savers globally** — [rtk](docs/installation-rtk.md) is the only one recommended at the global level. Compresses verbose bash output across every project.
 4. **Install project-level tools as you need them** — [codegraph](docs/installation-codegraph.md) / [codebase-memory-mcp](docs/installation-codebase-memory-mcp.md) for code context, [mattpocock/skills](docs/installation-matt-pocock-skills.md) or [superpowers](docs/installation-superpowers.md) for skills, [OpenSpec](docs/installation-openspec.md) for spec-driven dev, [caveman](docs/installation-caveman.md) for prose compression, [agent-browser](docs/installation-agent-browser.md) for browser automation. Each one scopes itself to the project you `cd` into.
-5. **Or install global session-level tools** — [pi-subagents](docs/installation-subagents.md) spawns Claude Code-style sub-agents; [@gotgenes/pi-permission-system](docs/installation-permission-system.md) gates every tool, bash, MCP, and skill call against a single policy file; [remote-pi](docs/installation-remote-pi.md) wires up a local agent mesh plus the mobile app. One install covers every project.
+5. **Or install global session-level tools** — [pi-subagents](docs/installation-subagents.md) spawns Claude Code-style sub-agents; [@gotgenes/pi-permission-system](docs/installation-permission-system.md) gates every tool, bash, MCP, and skill call against a single policy file; [remote-pi](docs/installation-remote-pi.md) wires up a local agent mesh plus the mobile app; [pi-tui-commands](docs/installation-tui-commands.md) turns your favourite TUI tools into slash commands that suspend and restore pi. One install covers every project.
 6. **Customize the global `AGENTS.md`** — add your language preference, working style, and MCP usage hints that apply everywhere.
 7. **Add project-level `AGENTS.md`** in repos that need it — project structure, tech stack, coding conventions.
 8. **Create your own prompt templates** in `.pi/prompts/` for repetitive workflows (`/your-command`).
@@ -330,6 +331,19 @@ https://raw.githubusercontent.com/orionpax1997/kickstart.pi/refs/heads/main/docs
 ```
 
 Then `/remote-pi` to run the one-time setup wizard, `/remote-pi pair` to scan a QR with the [Remote Pi app](https://remote-pi.jacobmoura.work/), and `/remote-pi status` to see who's connected.
+
+### pi-tui-commands
+
+[pi-tui-commands](https://pi.dev/packages/pi-tui-commands) turns any TUI tool on your `PATH` into a slash command: `/lazygit`, `/nvim`, `/htop`, `/k9s`, … `/tuicmd` opens a searchable toggle list (binary-availability is checked on toggle-on, so you never register something missing); `/tuicmd add lg lazygit` registers a custom alias; the generated command calls `ctx.ui.custom()` to **suspend pi cleanly while the tool runs and restores the TUI on exit** — same conversation, same prompt history, no alt-tab.
+
+Install at the **global** level. Paste this into pi:
+
+```
+Read the installation guide and follow it:
+https://raw.githubusercontent.com/orionpax1997/kickstart.pi/refs/heads/main/docs/installation-tui-commands.md
+```
+
+Then `/tuicmd` to open the picker, `Enter` to flip tools on / off, `/` to fuzzy-search. Your enabled set and custom commands survive restarts in `~/.pi/agent/tui-commands.json`.
 
 ---
 
