@@ -20,6 +20,7 @@ A well-commented, ready-to-use starting point for [Pi](https://github.com/earend
 - [Saving tokens](#saving-tokens)
 - [Agentic Workflow](#agentic-workflow)
 - [Explore](#explore)
+- [Remote control](#remote-control)
 - [Additional features](#additional-features)
 - [AGENTS.md](#agentsmd)
 
@@ -89,6 +90,7 @@ kickstart.pi/
     ├── installation-subagents.md   ← optional: Claude Code-style sub-agents (global)
     ├── installation-permission-system.md   ← optional: deterministic allow / ask / deny gates for tools, bash, MCP, skills (global)
     ├── installation-remote-pi.md   ← optional: local agent mesh + mobile app (global)
+    ├── installation-pi-web.md   ← optional: local browser UI over pi sessions (global)
     ├── installation-open-tui.md   ← optional: animated header + Starship footer + rounded editor (global)
     ├── installation-themes-bundle.md   ← optional: sixteen terminal palettes (global)
     ├── installation-rounded-tools.md   ← optional: rounded corners on built-in tools (global)
@@ -105,7 +107,7 @@ That's it. No `settings.json`, no skills, no agents, no extensions. **kickstart.
 2. **Decide what goes in your `~/.pi/agent/settings.json`** — kickstart.pi ships no config by design. Set your preferred provider, model, and theme. pi walks you through this on first launch.
 3. **Install token-savers globally** — [rtk](docs/installation-rtk.md) is the only one recommended at the global level. Compresses verbose bash output across every project.
 4. **Install project-level tools as you need them** — [codegraph](docs/installation-codegraph.md) / [codebase-memory-mcp](docs/installation-codebase-memory-mcp.md) for code context, [mattpocock/skills](docs/installation-matt-pocock-skills.md) or [superpowers](docs/installation-superpowers.md) for skills, [OpenSpec](docs/installation-openspec.md) for spec-driven dev, [caveman](docs/installation-caveman.md) for prose compression, [agent-browser](docs/installation-agent-browser.md) for browser automation. Each one scopes itself to the project you `cd` into.
-5. **Or install global session-level tools** — [pi-subagents](docs/installation-subagents.md) spawns Claude Code-style sub-agents; [@gotgenes/pi-permission-system](docs/installation-permission-system.md) gates every tool, bash, MCP, and skill call against a single policy file; [remote-pi](docs/installation-remote-pi.md) wires up a local agent mesh plus the mobile app; [pi-tui-commands](docs/installation-tui-commands.md) turns your favourite TUI tools into slash commands that suspend and restore pi. One install covers every project.
+5. **Or install global session-level tools** — [pi-subagents](docs/installation-subagents.md) spawns Claude Code-style sub-agents; [@gotgenes/pi-permission-system](docs/installation-permission-system.md) gates every tool, bash, MCP, and skill call against a single policy file; [pi-tui-commands](docs/installation-tui-commands.md) turns your favourite TUI tools into slash commands that suspend and restore pi. For front-ends on top of pi itself — a browser tab ([pi-web](docs/installation-pi-web.md)) or a phone app ([remote-pi](docs/installation-remote-pi.md)) — see [Remote control](#remote-control). One install covers every project.
 6. **Customize the global `AGENTS.md`** — add your language preference, working style, and MCP usage hints that apply everywhere.
 7. **Add project-level `AGENTS.md`** in repos that need it — project structure, tech stack, coding conventions.
 8. **Create your own prompt templates** in `.pi/prompts/` for repetitive workflows (`/your-command`).
@@ -278,6 +280,42 @@ https://raw.githubusercontent.com/orionpax1997/kickstart.pi/refs/heads/main/docs
 
 ---
 
+## Remote control
+
+Drive pi from a different surface — a browser tab or a phone. Both tools are independent processes that read / write the same on-disk pi state (`~/.pi/agent/sessions`, settings, peers); pi itself never knows they're there, and turning them off leaves pi exactly as it was.
+
+### pi-web
+
+[pi-web](https://github.com/agegr/pi-web) is a local web UI for pi. Run `pi-web` and a browser workspace opens at <http://127.0.0.1:30141> — session browser on the left, file tree and source / image / PDF preview on the right, live conversation in the centre, model configuration and skill toggles in the top bar. It reads the same `~/.pi/agent/sessions/*.jsonl` files pi writes, so you can resume any past conversation or fork a new branch from an earlier turn. No extension to install; pi-web is a standalone Node CLI that binds `127.0.0.1` by default and accepts optional Basic Auth via `PI_WEB_PASSWORD`.
+
+Install at the **global** level (it's a CLI that reads your machine-wide pi agent dir). Paste this into pi:
+
+```
+Read the installation guide and follow it:
+https://raw.githubusercontent.com/orionpax1997/kickstart.pi/refs/heads/main/docs/installation-pi-web.md
+```
+
+Then run `pi-web` and open <http://127.0.0.1:30141> in your browser. Stop the process and pi keeps running unaffected — pi-web holds no state of its own.
+
+### remote-pi
+
+[remote-pi](https://pi.dev/packages/remote-pi) adds two superpowers on top of pi, wired up by a single `/remote-pi` slash command: a **local agent mesh** (open several pi terminals in the same directory and they discover each other over a Unix-domain-socket broker, with two new LLM tools — `agent_send` and `agent_request`), and a **mobile app** that drives pi from your phone via a QR-paired WebSocket relay (send prompts / voice / images, switch model and thinking level). The agent network is purely local; only the mobile relay touches the network, and only through end-to-end-encrypted payloads.
+
+> remote-pi is unrelated to [pi-subagents](#subagents): sub-agents are spawned **inside one process** by the main agent; remote-pi peers are **separate pi processes** that opt in to a shared mesh and talk to each other directly.
+>
+> remote-pi is also independent from [pi-web](#pi-web): pi-web reads the **already-written** pi sessions and renders them in a browser tab; remote-pi's mobile app pushes **live** prompts into a running pi session. They're complementary, not alternatives.
+
+Install at the **global** level. Paste this into pi:
+
+```
+Read the installation guide and follow it:
+https://raw.githubusercontent.com/orionpax1997/kickstart.pi/refs/heads/main/docs/installation-remote-pi.md
+```
+
+Then `/remote-pi` to run the one-time setup wizard, `/remote-pi pair` to scan a QR with the [Remote Pi app](https://remote-pi.jacobmoura.work/), and `/remote-pi status` to see who's connected.
+
+---
+
 ## Additional features
 
 ### subagents
@@ -316,21 +354,6 @@ Install at the **project level**. `cd` into the project directory first, then pa
 Read the installation guide and follow it:
 https://raw.githubusercontent.com/orionpax1997/kickstart.pi/refs/heads/main/docs/installation-agent-browser.md
 ```
-
-### remote-pi
-
-[remote-pi](https://pi.dev/packages/remote-pi) adds two superpowers on top of pi, wired up by a single `/remote-pi` slash command: a **local agent mesh** (open several pi terminals in the same directory and they discover each other over a Unix-domain-socket broker, with two new LLM tools — `agent_send` and `agent_request`), and a **mobile app** that drives pi from your phone via a QR-paired WebSocket relay (send prompts / voice / images, switch model and thinking level). The agent network is purely local; only the mobile relay touches the network, and only through end-to-end-encrypted payloads.
-
-> remote-pi is unrelated to [pi-subagents](#subagents): sub-agents are spawned **inside one process** by the main agent; remote-pi peers are **separate pi processes** that opt in to a shared mesh and talk to each other directly.
-
-Install at the **global** level. Paste this into pi:
-
-```
-Read the installation guide and follow it:
-https://raw.githubusercontent.com/orionpax1997/kickstart.pi/refs/heads/main/docs/installation-remote-pi.md
-```
-
-Then `/remote-pi` to run the one-time setup wizard, `/remote-pi pair` to scan a QR with the [Remote Pi app](https://remote-pi.jacobmoura.work/), and `/remote-pi status` to see who's connected.
 
 ### pi-tui-commands
 

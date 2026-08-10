@@ -20,6 +20,7 @@
 - [节省 token](#节省-token)
 - [Agentic 工作流](#agentic-工作流)
 - [探索代码库](#探索代码库)
+- [远程控制](#远程控制)
 - [附加功能](#附加功能)
 - [AGENTS.md](#agentsmd)
 
@@ -89,6 +90,7 @@ kickstart.pi/
     ├── installation-subagents.md   ← 可选：Claude Code 风格 sub-agent（全局）
     ├── installation-permission-system.md   ← 可选：工具、bash、MCP、skill 的确定性 allow / ask / deny 权限闸门（全局）
     ├── installation-remote-pi.md   ← 可选：本地 agent 网格 + 手机 App（全局）
+    ├── installation-pi-web.md   ← 可选：pi 会话的本地浏览器 UI（全局）
     ├── installation-open-tui.md   ← 可选：动画 logo 头 + Starship 状态栏 + 圆角编辑器（全局）
     ├── installation-themes-bundle.md   ← 可选：十六套终端调色板（全局）
     ├── installation-rounded-tools.md   ← 可选：内置工具的圆角边框（全局）
@@ -105,7 +107,7 @@ kickstart.pi/
 2. `kickstart.pi` 故意不附带任何配置。在首次启动时，pi 会引导你设置 provider、model、theme。
 3. **全局装 token 节省工具** —— [rtk](docs/installation-rtk.md) 是唯一推荐全局装的。它会跨项目压缩冗长的 bash 输出。
 4. **按需装项目级工具** —— [codegraph](docs/installation-codegraph.md) / [codebase-memory-mcp](docs/installation-codebase-memory-mcp.md) 看代码，[mattpocock/skills](docs/installation-matt-pocock-skills.md) 或 [superpowers](docs/installation-superpowers.md) 提供 skill，[OpenSpec](docs/installation-openspec.md) 走 spec-driven 开发，[caveman](docs/installation-caveman.md) 压缩 prose，[agent-browser](docs/installation-agent-browser.md) 控制浏览器。每个都只对你 `cd` 进去的项目生效。
-5. **或者装全局的会话级工具** —— [pi-subagents](docs/installation-subagents.md) 派生 Claude Code 风格的 sub-agent；[@gotgenes/pi-permission-system](docs/installation-permission-system.md) 给所有工具、bash、MCP、skill 调用加上统一的权限闸门；[remote-pi](docs/installation-remote-pi.md) 拉起本地 agent 网格并接入手机 App；[pi-tui-commands](docs/installation-tui-commands.md) 把常用的 TUI 工具变成斜杠命令，运行时先挂起 pi、退出后再恢复。一次安装覆盖全部项目。
+5. **或者装全局的会话级工具** —— [pi-subagents](docs/installation-subagents.md) 派生 Claude Code 风格的 sub-agent；[@gotgenes/pi-permission-system](docs/installation-permission-system.md) 给所有工具、bash、MCP、skill 调用加上统一的权限闸门；[pi-tui-commands](docs/installation-tui-commands.md) 把常用的 TUI 工具变成斜杠命令，运行时先挂起 pi、退出后再恢复。要从浏览器或手机操控 pi，跳到 [远程控制](#远程控制) 装 [pi-web](docs/installation-pi-web.md) 或 [remote-pi](docs/installation-remote-pi.md)。一次安装覆盖全部项目。
 6. **修改全局 `AGENTS.md`** —— 加你的语言偏好、工作风格、跨项目都适用的 MCP 用法提示。
 7. **在需要 `AGENTS.md` 的项目根加一份** —— 写项目结构、技术栈、编码规范。
 8. **在 `.pi/prompts/` 里写自己的 prompt 模板** —— 把重复流程做成 `/your-command` 斜杠命令。
@@ -278,6 +280,42 @@ https://raw.githubusercontent.com/orionpax1997/kickstart.pi/refs/heads/main/docs
 
 ---
 
+## 远程控制
+
+在另一块屏幕上操作 pi —— 浏览器标签页或手机。两个工具都是独立进程，读取 / 改写 pi 落盘的同一份状态（`~/.pi/agent/sessions`、配置、配对设备）。pi 本身感知不到它们，关掉以后 pi 不会有任何变化。
+
+### pi-web
+
+[pi-web](https://github.com/agegr/pi-web) 是 pi 的本地 Web UI。跑一行 `pi-web` 就在 <http://127.0.0.1:30141> 打开一个浏览器工作台——左侧会话列表、中间实时对话、右侧文件树和源码 / 图片 / PDF 预览，顶栏还有模型配置与 skill 开关。它直接读 pi 已经写好的 `~/.pi/agent/sessions/*.jsonl`，所以可以恢复任意一次历史会话，或从早期的某条消息分叉出一条新的探索路线。**不需要**装任何 pi 扩展——pi-web 是个独立的 Node CLI，默认只绑 `127.0.0.1`，可选通过 `PI_WEB_PASSWORD` 启用 Basic Auth。
+
+**全局级别**安装——它是个 CLI，读的是你机器级的 pi agent 目录。把下面这段粘贴到 pi：
+
+```
+Read the installation guide and follow it:
+https://raw.githubusercontent.com/orionpax1997/kickstart.pi/refs/heads/main/docs/installation-pi-web.md
+```
+
+装好后跑 `pi-web`，浏览器打开 <http://127.0.0.1:30141>。关掉这个进程 pi 完全不受影响——pi-web 本身不存任何状态。
+
+### remote-pi
+
+[remote-pi](https://pi.dev/packages/remote-pi) 在 pi 之上额外提供两项能力，由一条 `/remote-pi` 斜杠命令统一开关：**本地 agent 网格**（在同一目录下开多个 pi 终端，它们通过 Unix 域套接字 broker 互相发现，并由 LLM 调用两个新工具 —— `agent_send` 与 `agent_request`），以及**手机 App**，通过扫码配对的 WebSocket relay 在手机上给 pi 发 prompt / 语音 / 图片，并切换 model 与 thinking 等级。agent 网格完全本地，不走网络；只有手机 relay 触网，并且 payload 端到端加密。
+
+> remote-pi 和 [pi-subagents](#subagents) 是两件事：sub-agent 是**同一个进程内**由主 agent 派生的；remote-pi 的 peer 是**各自独立的 pi 进程**，主动加入同一网格后直接对话。
+>
+> remote-pi 和 [pi-web](#pi-web) 也彼此独立：pi-web 读的是 pi **已经写下来**的会话，在浏览器里回放；remote-pi 的手机 App 是把 prompt **实时推进**正在运行的 pi 会话。两者互补，不是替代。
+
+建议**全局安装**。把下面这段粘贴到 pi：
+
+```
+Read the installation guide and follow it:
+https://raw.githubusercontent.com/orionpax1997/kickstart.pi/refs/heads/main/docs/installation-remote-pi.md
+```
+
+装好后 `/remote-pi` 跑一次性配置向导，`/remote-pi pair` 扫码绑定 [Remote Pi App](https://remote-pi.jacobmoura.work/)，`/remote-pi status` 查看当前接入的 peer。
+
+---
+
 ## 附加功能
 
 ### subagents
@@ -316,21 +354,6 @@ https://raw.githubusercontent.com/orionpax1997/kickstart.pi/refs/heads/main/docs
 Read the installation guide and follow it:
 https://raw.githubusercontent.com/orionpax1997/kickstart.pi/refs/heads/main/docs/installation-agent-browser.md
 ```
-
-### remote-pi
-
-[remote-pi](https://pi.dev/packages/remote-pi) 在 pi 之上额外提供两项能力，由一条 `/remote-pi` 斜杠命令统一开关：**本地 agent 网格**（在同一目录下开多个 pi 终端，它们通过 Unix 域套接字 broker 互相发现，并由 LLM 调用两个新工具 —— `agent_send` 与 `agent_request`），以及**手机 App**，通过扫码配对的 WebSocket relay 在手机上给 pi 发 prompt / 语音 / 图片，并切换 model 与 thinking 等级。agent 网格完全本地，不走网络；只有手机 relay 触网，并且 payload 端到端加密。
-
-> remote-pi 和 [pi-subagents](#subagents) 是两件事：sub-agent 是**同一个进程内**由主 agent 派生的；remote-pi 的 peer 是**各自独立的 pi 进程**，主动加入同一网格后直接对话。
-
-建议**全局安装**。把下面这段粘贴到 pi：
-
-```
-Read the installation guide and follow it:
-https://raw.githubusercontent.com/orionpax1997/kickstart.pi/refs/heads/main/docs/installation-remote-pi.md
-```
-
-装好后 `/remote-pi` 跑一次性配置向导，`/remote-pi pair` 扫码绑定 [Remote Pi App](https://remote-pi.jacobmoura.work/)，`/remote-pi status` 查看当前接入的 peer。
 
 ### pi-tui-commands
 
