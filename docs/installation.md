@@ -87,7 +87,7 @@ Core install is done. The rest of this document is optional add-ons, grouped int
 - **Token saving** — [rtk](https://github.com/rtk-ai/rtk), [caveman](https://github.com/JuliusBrussee/caveman)
 - **Agentic workflow** — [superpowers](https://github.com/obra/superpowers), [OpenSpec](https://github.com/Fission-AI/OpenSpec)
 - **Explore** — [codegraph](https://github.com/colbymchenry/codegraph), [codebase-memory-mcp](https://github.com/DeusData/codebase-memory-mcp)
-- **Additional features** — [agent-browser](https://github.com/vercel-labs/agent-browser), [pi-subagents-lite](https://pi.dev/packages/pi-subagents-lite), [@gotgenes/pi-permission-system](https://pi.dev/packages/@gotgenes/pi-permission-system), [remote-pi](https://pi.dev/packages/remote-pi)
+- **Additional features** — [agent-browser](https://github.com/vercel-labs/agent-browser), [pi-subagents-lite](https://pi.dev/packages/pi-subagents-lite), [@gotgenes/pi-permission-system](https://pi.dev/packages/@gotgenes/pi-permission-system), [pi-mono-context](https://pi.dev/packages/pi-mono-context), [pi-mono-usage](https://pi.dev/packages/pi-mono-usage), [remote-pi](https://pi.dev/packages/remote-pi)
 - **Beautification** — [pi-open-tui](https://pi.dev/packages/pi-open-tui), [@firstpick/pi-themes-bundle](https://pi.dev/packages/@firstpick/pi-themes-bundle)
 
 Pick what fits your workflow, or skip straight to using pi.

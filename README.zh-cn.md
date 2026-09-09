@@ -368,6 +368,32 @@ https://raw.githubusercontent.com/orionpax1997/kickstart.pi/refs/heads/main/docs
 
 装好后 `/tuicmd` 打开开关列表，`Enter` 切换 ON/OFF，`/` 模糊搜索。启用集合与自定义命令持久化在 `~/.pi/agent/tui-commands.json`，重启不丢。
 
+### pi-mono-context
+
+[pi-mono-context](https://pi.dev/packages/pi-mono-context) 为 pi 加上 Claude Code 风格的 `/context` 命令，在会话里就地打印当前上下文窗口占用——彩色已用/空闲网格、分类估算（系统提示、工具、消息、剩余空间）、会话统计（轮数、消息数、缓存读写、花费）以及按扩展划分的 token 占用。报告仅供显示：每次 LLM 调用前都会被 hook 过滤掉，查上下文永远不会反过来吃上下文。
+
+建议**全局安装**。把下面这段粘贴到 pi：
+
+```
+Read the installation guide and follow it:
+https://raw.githubusercontent.com/orionpax1997/kickstart.pi/refs/heads/main/docs/installation-context.md
+```
+
+装好后 `/context` 看窗口都花在哪了。
+
+### pi-mono-usage
+
+[pi-mono-usage](https://pi.dev/packages/pi-mono-usage) 为 pi 加上 `/usage` 命令，解析本地 pi 会话文件并渲染一个内联 dashboard：按 provider / model 的 token 花费与成本、成本驱动模式、工具级统计、GitHub 风格的活动热力图（带连击天数）、以及环境足迹估算。全部在本地从 `~/.pi/agent/sessions/` 算出来——数据不出机器。
+
+建议**全局安装**。把下面这段粘贴到 pi：
+
+```
+Read the installation guide and follow it:
+https://raw.githubusercontent.com/orionpax1997/kickstart.pi/refs/heads/main/docs/installation-usage.md
+```
+
+装好后 `/usage` 打开 dashboard——`Tab` 切换 Today / This Week / This Month / All Time，`v` 切换五个视图。
+
 ---
 
 ## AGENTS.md

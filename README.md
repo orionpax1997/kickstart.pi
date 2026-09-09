@@ -368,6 +368,32 @@ https://raw.githubusercontent.com/orionpax1997/kickstart.pi/refs/heads/main/docs
 
 Then `/tuicmd` to open the picker, `Enter` to flip tools on / off, `/` to fuzzy-search. Your enabled set and custom commands survive restarts in `~/.pi/agent/tui-commands.json`.
 
+### pi-mono-context
+
+[pi-mono-context](https://pi.dev/packages/pi-mono-context) adds a Claude Code-style `/context` command that prints the current session's context-window usage inline — a colored used-vs-free grid, per-category estimate (system prompts, tools, messages, free space), session stats (turns, messages, cache read/write, cost), and per-extension token allocation. The report is display-only: a hook strips it before every LLM call, so checking your context never costs context.
+
+Install at the **global** level. Paste this into pi:
+
+```
+Read the installation guide and follow it:
+https://raw.githubusercontent.com/orionpax1997/kickstart.pi/refs/heads/main/docs/installation-context.md
+```
+
+Then `/context` to see where your window is going.
+
+### pi-mono-usage
+
+[pi-mono-usage](https://pi.dev/packages/pi-mono-usage) adds a `/usage` command that parses your local pi session files and renders an inline dashboard: token spend and cost by provider/model, cost-driver patterns, per-tool stats, a GitHub-style activity heatmap with streaks, and an environmental footprint estimate. All computed locally from `~/.pi/agent/sessions/` — nothing leaves your machine.
+
+Install at the **global** level. Paste this into pi:
+
+```
+Read the installation guide and follow it:
+https://raw.githubusercontent.com/orionpax1997/kickstart.pi/refs/heads/main/docs/installation-usage.md
+```
+
+Then `/usage` to open the dashboard — `Tab` cycles Today / This Week / This Month / All Time, `v` cycles the five views.
+
 ---
 
 ## AGENTS.md
