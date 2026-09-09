@@ -14,10 +14,10 @@ This installs the skills + a small bootstrap extension into your pi session. Pi 
 
 ## Optional: subagent support
 
-A few superpowers workflows (delegated execution, code review) need a `subagent` tool. Pi core doesn't ship one, but [@tintinweb/pi-subagents](https://pi.dev/packages/@tintinweb/pi-subagents) fills the gap:
+A few superpowers workflows (delegated execution, code review) need a `subagent` tool. Pi core doesn't ship one, but [pi-subagents-lite](https://pi.dev/packages/pi-subagents-lite) fills the gap — see the [install guide](installation-subagents-lite.md):
 
 ```bash
-pi install npm:@tintinweb/pi-subagents
+pi install npm:pi-subagents-lite
 ```
 
 Skip if you only plan to use the lighter skills (brainstorming, TDD, planning).

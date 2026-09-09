@@ -2,7 +2,7 @@
 
 [@gotgenes/pi-permission-system](https://pi.dev/packages/@gotgenes/pi-permission-system) is a permission enforcement extension for pi — it gates every tool, bash, MCP, skill, and special operation against a single policy file. Three states (`allow` / `deny` / `ask`) and four layered surfaces (`path` → `external_directory` → per-tool patterns → `bash` patterns) cover most of what a coding agent can do, with UI confirmation dialogs for anything that isn't pre-approved.
 
-> **Why pair it with `pi-subagents`?** When a sub-agent decides to `rm -rf` something, you want the same policy to apply. `@gotgenes/pi-permission-system` forwards `ask` prompts from non-UI child sessions back to the parent's prompt, so sub-agent operations are gated by the same rules. Install both at the global level and they cooperate out of the box.
+> **Why pair it with `pi-subagents-lite`?** When a sub-agent decides to `rm -rf` something, you want the same policy to apply. `@gotgenes/pi-permission-system` forwards `ask` prompts from non-UI child sessions back to the parent's prompt, so sub-agent operations are gated by the same rules. Install both at the global level and they cooperate out of the box.
 
 ## Install
 

@@ -7,7 +7,7 @@
 
 The agent network is purely local (no network involved); only the mobile app touches the network, and only through a TLS-encrypted WebSocket whose payload is end-to-end encrypted between pi and the paired device. See [Trust model](#trust-model) for what the relay actually sees.
 
-> remote-pi is unrelated to [pi-subagents](https://pi.dev/packages/@tintinweb/pi-subagents): sub-agents live inside one process and the main agent spawns them; remote-pi peers are **separate pi processes** that opt in to a shared mesh and talk to each other directly.
+> remote-pi is unrelated to [pi-subagents-lite](https://pi.dev/packages/pi-subagents-lite): sub-agents live inside one process and the main agent spawns them; remote-pi peers are **separate pi processes** that opt in to a shared mesh and talk to each other directly.
 
 ## Prerequisites
 

@@ -107,7 +107,7 @@ kickstart.pi/
 2. `kickstart.pi` 故意不附带任何配置。在首次启动时，pi 会引导你设置 provider、model、theme。
 3. **全局装 token 节省工具** —— [rtk](docs/installation-rtk.md) 是唯一推荐全局装的。它会跨项目压缩冗长的 bash 输出。
 4. **按需装项目级工具** —— [codegraph](docs/installation-codegraph.md) / [codebase-memory-mcp](docs/installation-codebase-memory-mcp.md) 看代码，[mattpocock/skills](docs/installation-matt-pocock-skills.md) 或 [superpowers](docs/installation-superpowers.md) 提供 skill，[OpenSpec](docs/installation-openspec.md) 走 spec-driven 开发，[caveman](docs/installation-caveman.md) 压缩 prose，[agent-browser](docs/installation-agent-browser.md) 控制浏览器。每个都只对你 `cd` 进去的项目生效。
-5. **或者装全局的会话级工具** —— [pi-subagents](docs/installation-subagents.md) 派生 Claude Code 风格的 sub-agent；[@gotgenes/pi-permission-system](docs/installation-permission-system.md) 给所有工具、bash、MCP、skill 调用加上统一的权限闸门；[pi-tui-commands](docs/installation-tui-commands.md) 把常用的 TUI 工具变成斜杠命令，运行时先挂起 pi、退出后再恢复。要从浏览器或手机操控 pi，跳到 [远程控制](#远程控制) 装 [pi-web](docs/installation-pi-web.md) 或 [remote-pi](docs/installation-remote-pi.md)。一次安装覆盖全部项目。
+5. **或者装全局的会话级工具** —— [pi-subagents-lite](docs/installation-subagents-lite.md) 以极小 token 开销派生 sub-agent；[@gotgenes/pi-permission-system](docs/installation-permission-system.md) 给所有工具、bash、MCP、skill 调用加上统一的权限闸门；[pi-tui-commands](docs/installation-tui-commands.md) 把常用的 TUI 工具变成斜杠命令，运行时先挂起 pi、退出后再恢复。要从浏览器或手机操控 pi，跳到 [远程控制](#远程控制) 装 [pi-web](docs/installation-pi-web.md) 或 [remote-pi](docs/installation-remote-pi.md)。一次安装覆盖全部项目。
 6. **修改全局 `AGENTS.md`** —— 加你的语言偏好、工作风格、跨项目都适用的 MCP 用法提示。
 7. **在需要 `AGENTS.md` 的项目根加一份** —— 写项目结构、技术栈、编码规范。
 8. **在 `.pi/prompts/` 里写自己的 prompt 模板** —— 把重复流程做成 `/your-command` 斜杠命令。
@@ -320,16 +320,16 @@ https://raw.githubusercontent.com/orionpax1997/kickstart.pi/refs/heads/main/docs
 
 ### subagents
 
-[@tintinweb/pi-subagents](https://pi.dev/packages/@tintinweb/pi-subagents) 为 pi 带来 Claude Code 风格的自主管控 sub-agent——可在独立会话中派生专门的 agent，每个 agent 都有自己的工具、系统提示、模型与思考等级。支持前台 / 后台运行、中途介入，以及通过 `.pi/agents/*.md`（项目级）或全局定义自己的 agent 类型。
+[pi-subagents-lite](https://pi.dev/packages/pi-subagents-lite) 为 pi 带来 schema 优先、token 开销极低的 sub-agent——可在独立会话中派生专门的 agent，每个 agent 都有自己的工具、扩展与模型，支持前台 / 后台运行。只有三个工具、没有冗长描述；中途介入与续跑、通过 `.pi/agents/*.md`（项目级）或全局定义 agent 类型、按模型并发上限、带成本统计的实时 widget、卡死 agent 的看门狗，全部在 `/agents` 里管理。
 
 建议**全局安装**。把下面这段粘贴到 pi：
 
 ```
 Read the installation guide and follow it:
-https://raw.githubusercontent.com/orionpax1997/kickstart.pi/refs/heads/main/docs/installation-subagents.md
+https://raw.githubusercontent.com/orionpax1997/kickstart.pi/refs/heads/main/docs/installation-subagents-lite.md
 ```
 
-装好后用 `/agents` 在 pi 里管理与查看正在运行的 sub-agent。
+装好后用 `/agents` 在 pi 里管理、查看、介入 sub-agent，也可以不经 LLM 手动派生。
 
 ### pi-permission-system
 
