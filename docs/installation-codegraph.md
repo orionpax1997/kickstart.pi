@@ -4,19 +4,30 @@
 
 ## Install codegraph
 
-`cd` into the project directory, then install codegraph:
+codegraph does not ship with a built-in pi agent target, so use the `opencode` target to generate the agent instructions, then clean up the leftover opencode config file:
 
 ```bash
-npx -y @colbymchenry/codegraph install
+npx -y @colbymchenry/codegraph install -t opencode -l local -y
 ```
 
-This command installs codegraph, but does not create the project's `.pi/mcp.json`. Wire up the MCP server manually as described below, then build the per-project graph:
+This installs the codegraph binary and writes two files in the project directory:
+
+- `AGENTS.md` — agent instructions for using codegraph (kept)
+- `opencode.jsonc` — opencode MCP config (deleted below, since we use pi)
+
+Delete `opencode.jsonc` immediately after install — it is only needed for opencode and is irrelevant to pi:
+
+```bash
+rm opencode.jsonc
+```
+
+Then build the per-project graph:
 
 ```bash
 npx -y @colbymchenry/codegraph init
 ```
 
-All three steps are required: `install` installs codegraph, the `.pi/mcp.json` configuration connects it to pi, and `init` builds the index. Without `init`, the MCP tools have nothing to query.
+All steps are required: `install` installs codegraph and updates `AGENTS.md`, deleting `opencode.jsonc` removes the unused opencode config, the `.pi/mcp.json` entry below connects codegraph to pi, and `init` builds the index. Without `init`, the MCP tools have nothing to query.
 
 ## Configure MCP
 
