@@ -16,7 +16,7 @@ codebase-memory-mcp --version
 
 ## 2. Wire the MCP server into the project
 
-In the project root, create `.pi/mcp.json` if it does not exist. If it already exists, merge the `codebase-memory-mcp` entry into its existing `mcpServers` object instead of replacing the file. The `environment.CBM_CACHE_DIR` entry redirects the SQLite index to a project-local directory:
+In the project root, create `.pi/mcp-adapter.json` if it does not exist. If it already exists, merge the `codebase-memory-mcp` entry into its existing `mcpServers` object instead of replacing the file. (`pi-mcp-adapter` never reads `.pi/mcp.json` — that file is reserved for Pi's built-in MCP support. The format is identical, so an existing `.pi/mcp.json` can simply be renamed.) The `environment.CBM_CACHE_DIR` entry redirects the SQLite index to a project-local directory:
 
 ```json
 {
@@ -34,7 +34,7 @@ In the project root, create `.pi/mcp.json` if it does not exist. If it already e
 
 The relative path `.codebase-memory/cache` resolves against the project root when the MCP server starts there.
 
-Restart pi. Verify with `/mcp` — `codebase-memory-mcp` should be listed.
+Restart pi. Verify with `/mcp-adapter` — `codebase-memory-mcp` should be listed.
 
 ## 3. Build the graph
 
@@ -88,6 +88,6 @@ The SQLite index is regenerable from source — never commit it. Add to the proj
 
 ## Recommendation: install at the project level
 
-- The SQLite index and the project's `.pi/mcp.json` stay scoped to the project that benefits from them
+- The SQLite index and the project's `.pi/mcp-adapter.json` stay scoped to the project that benefits from them
 - `CBM_CACHE_DIR` redirects the global cache to project-local — keeps the index alongside the code it describes
 - Matches how codebase-memory-mcp is intended (per-project, not per-machine)

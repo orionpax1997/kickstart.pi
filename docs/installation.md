@@ -45,7 +45,9 @@ First, install the MCP adapter:
 pi install npm:pi-mcp-adapter
 ```
 
-Then create or update `~/.pi/agent/mcp.json` with these entries. If the file already contains other MCP servers, preserve them and merge these entries into its existing `mcpServers` object; do not replace the whole file. If the entries already exist, keep the existing configuration and avoid duplicates. Create `mcp.json` only when it does not exist.
+Then create or update `~/.pi/agent/mcp-adapter.json` with these entries. If the file already contains other MCP servers, preserve them and merge these entries into its existing `mcpServers` object; do not replace the whole file. If the entries already exist, keep the existing configuration and avoid duplicates. Create `mcp-adapter.json` only when it does not exist.
+
+> **Do not use `mcp.json` here.** `~/.pi/agent/mcp.json` belongs to Pi's built-in MCP support and is never read by `pi-mcp-adapter`. The adapter owns `mcp-adapter.json` (format unchanged, so an existing `mcp.json` can be `mv`'d into place). Keeping the two files separate is what stops Pi and the adapter from starting the same servers twice.
 
 ```json
 {
@@ -66,7 +68,7 @@ Then create or update `~/.pi/agent/mcp.json` with these entries. If the file alr
 
 > **Why `eager` for exa?** Web search is the first thing pi reaches for in fresh sessions — kicking off the connection at startup (rather than waiting for the first tool call) means search results are ready by the time pi actually needs them. The other two are `lazy` (default) since they only fire on explicit lookups.
 
-If you already configured MCPs in Cursor / Claude Code / Codex, prefer `/mcp setup` (in any pi session) to import them rather than hand-writing `mcp.json`.
+If you already configured MCPs in Cursor / Claude Code / Codex, prefer `/mcp-adapter setup` (in any pi session) to import them rather than hand-writing `mcp-adapter.json`.
 
 ## Step 3: Configure Agent Instructions
 

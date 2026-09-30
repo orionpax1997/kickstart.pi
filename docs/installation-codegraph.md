@@ -27,11 +27,11 @@ Then build the per-project graph:
 npx -y @colbymchenry/codegraph init
 ```
 
-All steps are required: `install` installs codegraph and updates `AGENTS.md`, deleting `opencode.jsonc` removes the unused opencode config, the `.pi/mcp.json` entry below connects codegraph to pi, and `init` builds the index. Without `init`, the MCP tools have nothing to query.
+All steps are required: `install` installs codegraph and updates `AGENTS.md`, deleting `opencode.jsonc` removes the unused opencode config, the `.pi/mcp-adapter.json` entry below connects codegraph to pi, and `init` builds the index. Without `init`, the MCP tools have nothing to query.
 
 ## Configure MCP
 
-Create `.pi/mcp.json` in the project root if it does not exist. If it already exists, merge the `codegraph` entry into its existing `mcpServers` object instead of replacing the file:
+Create `.pi/mcp-adapter.json` in the project root if it does not exist. If it already exists, merge the `codegraph` entry into its existing `mcpServers` object instead of replacing the file. (`pi-mcp-adapter` never reads `.pi/mcp.json` — that file is reserved for Pi's built-in MCP support. The format is identical, so an existing `.pi/mcp.json` can simply be renamed.)
 
 ```json
 {
@@ -44,7 +44,7 @@ Create `.pi/mcp.json` in the project root if it does not exist. If it already ex
 }
 ```
 
-Restart pi. Verify with `/mcp` — `codegraph` should be listed.
+Restart pi. Verify with `/mcp-adapter` — `codegraph` should be listed.
 
 ## Verify
 
