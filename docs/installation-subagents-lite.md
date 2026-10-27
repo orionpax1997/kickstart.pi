@@ -108,6 +108,10 @@ When `includeContextFiles` is `true` (default), AGENTS.md files load as shared c
 
 The watchdog stops hung agents and notifies the main session on a kill. Two independent checks, both default 45 minutes (`0` disables): `toolTimeoutMinutes` (a single tool call running too long) and `idleTimeoutMinutes` (no tool events or streamed text for this long). Optionally enable output transcripts — streaming to `/tmp/pi-agent-outputs/<agentId>.log` (append-only, `tail -f` friendly) — globally via config or per-agent via the `output_transcript` frontmatter field.
 
+### Permission gates
+
+Each Subagent session is announced on pi's extension event bus when it is created, bound, and disposed. A gate such as [@gotgenes/pi-permission-system](installation-permission-system.md) uses those announcements to escalate an `ask` decision made inside a Subagent to the parent session instead of failing closed in the child. This requires pi-subagents-lite 1.17.0 or newer.
+
 ## Uninstall
 
 ```bash

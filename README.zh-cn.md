@@ -333,7 +333,7 @@ https://raw.githubusercontent.com/orionpax1997/kickstart.pi/refs/heads/main/docs
 
 ### pi-permission-system
 
-[@gotgenes/pi-permission-system](https://pi.dev/packages/@gotgenes/pi-permission-system) 是一道确定性权限闸门,坐落在 agent 与每次工具、bash、MCP、skill 调用之间。三种状态（`allow` / `deny` / `ask`）加四层权限面（`path` → `external_directory` → 工具级规则 → `bash` 规则）覆盖了编码 agent 几乎所有的破坏面——没预先放行的,统一弹 UI 确认框。sub-agent 的 `ask` 提示会自动转发回父会话,让 sub-agent 操作也走同一套规则。
+[@gotgenes/pi-permission-system](https://pi.dev/packages/@gotgenes/pi-permission-system) 是一道确定性权限闸门,坐落在 agent 与每次工具、bash、MCP、skill 调用之间。三种状态（`allow` / `deny` / `ask`）加四层权限面（`path` → `external_directory` → 工具级规则 → `bash` 规则）覆盖了编码 agent 几乎所有的破坏面——没预先放行的,统一弹 UI 确认框。当 subagent 扩展声明了子会话时（`pi-subagents-lite` 1.17.0+、`@gotgenes/pi-subagents`），sub-agent 的 `ask` 提示会转发回父会话弹窗，让 sub-agent 操作也走同一套规则；不声明子会话的实现（如 1.16.0 及更早的 `pi-subagents-lite`）会直接报“没有可交互 UI”而失败。
 
 建议**全局安装**。把下面这段粘贴到 pi：
 

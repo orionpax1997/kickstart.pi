@@ -333,7 +333,7 @@ Then `/agents` to manage, inspect, steer, and manually spawn sub-agents from ins
 
 ### pi-permission-system
 
-[@gotgenes/pi-permission-system](https://pi.dev/packages/@gotgenes/pi-permission-system) is a deterministic permission gate that sits between the agent and every tool, bash, MCP, and skill call. Three states (`allow` / `deny` / `ask`) and four layered surfaces (`path` → `external_directory` → per-tool patterns → `bash` patterns) cover the vast majority of what a coding agent can do — with UI confirmation dialogs for anything you didn't pre-approve. Sub-agent `ask` prompts are forwarded back to the parent's UI, so sub-agent operations are gated by the same rules.
+[@gotgenes/pi-permission-system](https://pi.dev/packages/@gotgenes/pi-permission-system) is a deterministic permission gate that sits between the agent and every tool, bash, MCP, and skill call. Three states (`allow` / `deny` / `ask`) and four layered surfaces (`path` → `external_directory` → per-tool patterns → `bash` patterns) cover the vast majority of what a coding agent can do — with UI confirmation dialogs for anything you didn't pre-approve. Sub-agent `ask` prompts are forwarded back to the parent's UI when the subagent extension announces its child sessions (`pi-subagents-lite` 1.17.0+, `@gotgenes/pi-subagents`), so sub-agent operations are gated by the same rules.
 
 Install at the **global** level. Paste this into pi:
 
